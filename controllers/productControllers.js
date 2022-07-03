@@ -73,10 +73,57 @@ module.exports.getPhoto = async (req, res) => {
   const product = await Product.findById(productId).select({
     photo: 1,
     _id: 0,
-  })
+  });
   res.set("Content-Type", product.photo.contentType);
 
   return res.status(200).send(product.photo.data);
 };
 
-module.exports.updateProductById = async (req, res) => {};
+module.exports.updateProductById = async (req, res) => {
+  //Get Product by Id
+  //Collect from data
+  //Update Provide Form Fields
+  //Update Photo(If required)
+
+  const productId = req.params.id;
+  const product = await Product.findById(productId);
+
+  let form = new formidable.IncomingForm();
+  form.keepExtensions = true;
+  form.parse(req, (err, fields, files) => {
+    if (err) return res.status(400).send("Something wrong!!");
+
+    const updatedFields = _.pick(fields, [
+      "name",
+      "description",
+      "price",
+      "category",
+      "quantity",
+    ]);
+    _.assignIn(product, updatedFields);
+
+    if (files.photo) {
+      fs.readFile(files.photo.path, (err, data) => {
+        if (err) return res.status(400).send("Something wrong!!");
+        product.photo.data = data;
+        product.photo.contentType = files.photo.type;
+
+        product.save((err, result) => {
+          if (err) return res.status(500).send("Something Failed!!!");
+          else
+            return res.status(200).send({
+              message: "Product Updated Successfully!!!",
+            });
+        });
+      });
+    } else {
+      product.save((err, result) => {
+        if (err) return res.status(500).send("Something Failed!!!");
+        else
+          return res.status(200).send({
+            message: "Product Updated Successfully!!!",
+          });
+      });
+    }
+  });
+};
