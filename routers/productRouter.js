@@ -1,16 +1,19 @@
-const express = require("express");
-const router = express.Router();
+const router = require('express').Router();
 const {
-  getProduct,
-  createProduct,
-  getProductById,
-  updateProductById,
-} = require("../controllers/productControllers");
-const admin = require("../middlewares/admin");
-const authorize = require("../middlewares/authorize");
+    getProducts,
+    createProduct,
+    getProductById,
+    updateProductById
+} = require('../controllers/productControllers');
+const admin = require('../middlewares/admin');
+const authorize = require('../middlewares/authorize');
 
-router.route("/").post([authorize, admin], createProduct).get(getProduct);
+router.route('/')
+    .post([authorize, admin], createProduct)
+    .get(getProducts);
 
-router.route("/:id").get(getProductById).put(updateProductById);
+router.route('/:id')
+    .get(getProductById)
+    .put(updateProductById);
 
 module.exports = router;
