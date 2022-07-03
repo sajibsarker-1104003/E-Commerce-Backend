@@ -4,7 +4,8 @@ const {
     createProduct,
     getProductById,
     updateProductById,    
-    getPhoto
+    getPhoto,
+    filterProducts
 } = require('../controllers/productControllers');
 const admin = require('../middlewares/admin');
 const authorize = require('../middlewares/authorize');
@@ -19,6 +20,10 @@ router.route('/:id')
 
     router.route('/photo/:id')
     .get(getPhoto);
+
+    router.route('/filter')
+
+
 
 
 
