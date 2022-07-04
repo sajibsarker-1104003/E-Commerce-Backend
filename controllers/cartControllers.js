@@ -7,7 +7,7 @@ module.exports.createCartItem=async(req,res)=>{
     user:req.user._id,
     product:product
   });
-  if(!item) return res.status(400).send('Item Already Exists in Cart');
+  if(item) return res.status(400).send('Item Already Exists in Cart');
 
   let cartItem=new CartItem({
     price:price,
