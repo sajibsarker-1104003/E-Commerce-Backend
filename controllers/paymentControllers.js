@@ -2,6 +2,10 @@ const { CartItem } = require('../models/cartItem');
 const { Profile } = require('../models/profile');
 const PaymentSession = require('ssl-commerz-node').PaymentSession;
 
+module.exports.ipn=async(req,res)=>{
+    console.log(req.body);
+}
+
 module.exports.initPayment = async (req, res) => {
     const userId = req.user._id;
     const cartItems = await CartItem.find({ user: userId });
