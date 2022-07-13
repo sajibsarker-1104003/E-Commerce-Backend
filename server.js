@@ -2,6 +2,9 @@ require('dotenv/config');
 const app=require('./app');
 
 const mongoose = require('mongoose');
+const { replace } = require("lodash");
+
+
 mongoose.connect(process.env.MONGODB_URL_LOCAL)
 .then(()=>{
   console.log('Connected Succesfully!');
