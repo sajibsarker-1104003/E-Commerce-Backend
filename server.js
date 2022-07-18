@@ -4,7 +4,7 @@ const app=require('./app');
 const mongoose = require('mongoose');
 const { replace } = require("lodash");
 
-const DB=process.env.MONGODB_SERVER.replace('<PASSWORD>',process.env.DB_PASSWORD);
+const DB=process.env.MONGODB_URL.replace('<PASSWORD>',process.env.DB_PASSWORD);
 mongoose.connect(DB)
 .then(()=>{
   console.log('Connected Succesfully!');
