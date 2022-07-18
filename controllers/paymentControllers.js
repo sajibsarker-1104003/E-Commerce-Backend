@@ -1,6 +1,12 @@
 const { CartItem } = require('../models/cartItem');
 const { Profile } = require('../models/profile');
 const PaymentSession = require('ssl-commerz-node').PaymentSession;
+const Order=require('../models/order');
+const Payment=require('../models/payment');
+
+//Request Session
+//Payment Process
+//Receive ipn
 
 module.exports.ipn=async(req,res)=>{
     console.log(req.body);
